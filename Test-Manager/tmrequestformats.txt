@@ -1,0 +1,16 @@
+
+
+
+
+
+
+
+
+
+const char *req = "{\"type\": \"request_questions\", \"questionsequence\": [1, 2, 3, 4, 5]}";
+
+const char *req = "{\"type\": \"request_random_sequence\", \"num_questions\": 5}";
+
+const char *req = "{\"type\": \"submit_answer\", \"questionID\": 0, \"answer\": \"Student code yipee\"}";
+
+const char *req = "{\"type\": \"request_answer\", \"questionID\": 0}";

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question Navigation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+        }    h1 {
+        margin-bottom: 30px;
+    }
+
+    .question-container {
+        display: none;
+        background-color: #ffffff;
+        padding: 20px;
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .button-container {
+        clear: both;
+        display: block;
+    }
+
+
+    .active {
+        display: block;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: #ffffff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    #progress {
+        font-weight: bold;
+    }
+
+    #marks {
+        font-weight: bold;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: #ffffff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+</style>
+<script>
+    let currentQuestion = 0;
+
+    function showQuestion(index) {
+        let questions = document.getElementsByClassName("question-container");
+        if (index >= 0 && index < questions.length) {
+            questions[currentQuestion].classList.remove("active");
+            currentQuestion = index;
+            questions[currentQuestion].classList.add("active");
+        }
+    }
+
+    function nextQuestion() {
+        event.preventDefault();
+        showQuestion(currentQuestion + 1);
+    }
+
+    function previousQuestion() {
+        event.preventDefault();
+        showQuestion(currentQuestion - 1);
+    }
+
+    function logout() {
+  const sessionToken = document.cookie.replace(/(?:(?:^|.*;\s*)session_token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/logout", true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        console.log(xhr.responseText);
+       
+      } else {
+        console.error(xhr.statusText);
+      }
+    }
+  };
+  xhr.send(JSON.stringify({sessionToken: sessionToken})); 
+  window.location.href = "/login.html"; // Redirect to login page
+}
+</script>
+</head>
+<script>
+    // Script to populate progress to forms.
+    window.onload = function() {
+        // Make a request to the get-questions endpoint
+        const xhrQuestions = new XMLHttpRequest();
+        xhrQuestions.open("GET", "/get-questions", true);
+        xhrQuestions.onreadystatechange = function() {
+            if (xhrQuestions.readyState === XMLHttpRequest.DONE) {
+                if (xhrQuestions.status === 200) {
+                    // Parse the response
+                    const data = JSON.parse(xhrQuestions.responseText);
+                    console.log(data) //debugging
+
+                    const CQuestions = data.CQuestions.questions;
+                    const javaQuestions = data.javaQuestions.questions;
+
+                    // Concatenate them into a single array
+                    const questions = CQuestions.concat(javaQuestions);
+                    console.log(questions); //debugging
+
+                    // Get a reference to the form
+                    const form = document.getElementById("quizForm");
+                    
+                    for (let i = 0; i < questions.length; i++) {
+                        const question = questions[i];
+
+                        // Create a new div for the question
+                        const questionDiv = document.createElement('div');
+                        questionDiv.className = 'question-container';
+                        questionDiv.id = 'question-' + question.id;
+
+                        // Create a header for the question number
+                        const questionHeader = document.createElement('h3');
+                        questionHeader.innerText = 'Question ' + (i + 1);
+                        questionDiv.appendChild(questionHeader);
+
+                        // Create a paragraph for the question text
+                        const questionText = document.createElement('p');
+                        questionText.innerText = question.question;
+                        questionDiv.appendChild(questionText);
+
+                        if (question.type === 'mcq') {
+                            // Create a list for the question options
+                            const questionList = document.createElement('ul');
+                            for (let j = 0; j < question.options.length; j++) {
+                                const option = question.options[j];
+                            
+                                // Create a list item for the option
+                                const optionItem = document.createElement('li');
+                            
+                                // Create an input for the option
+                                const input = document.createElement('input');
+                                input.type = 'radio';
+                                input.name = question.id;
+                                input.value = option;
+                            
+                                // Add the input and option text to the list item
+                                optionItem.appendChild(input);
+                                optionItem.appendChild(document.createTextNode(' ' + option));
+                            
+                                // Add the list item to the list
+                                questionList.appendChild(optionItem);
+                            }
+                        
+                            questionDiv.appendChild(questionList);
+                        } else if (question.type === 'prog_py' || question.type === 'prog_java') {
+                            // Create a textarea for the answer
+                            const textarea = document.createElement('textarea');
+                            textarea.name = question.id;
+                            textarea.rows = '10';
+                            textarea.cols = '50';
+                        
+                            questionDiv.appendChild(textarea);
+                        }
+
+                        const buttonDiv = document.createElement('div');
+                        buttonDiv.className = 'button-container';
+                        
+                        // Add the previous and next buttons
+                        const prevButton = document.createElement('button');
+                        prevButton.type = "button";
+                        prevButton.onclick = previousQuestion;
+                        prevButton.textContent = "Previous";
+                        buttonDiv.appendChild(prevButton);
+
+                        const nextButton = document.createElement('button');
+                        nextButton.type = "button";
+                        nextButton.onclick = nextQuestion;
+                        nextButton.textContent = "Next";
+                        buttonDiv.appendChild(nextButton);
+                    
+                        questionDiv.appendChild(buttonDiv);
+                        // Add the div to the form
+                        form.appendChild(questionDiv);
+                    }
+
+                    // adds the active class to first question
+                    if (questions.length > 0) {
+                        form.children[0].classList.add('active');
+                    }
+
+                } else {
+                    console.error(xhrQuestions.statusText);
+                }
+            }
+        };
+        xhrQuestions.send();
+
+        // Make a request to the get-progress endpoint
+        const xhrProgress = new XMLHttpRequest();
+        xhrProgress.open("GET", "/get-progress", true);
+        xhrProgress.onreadystatechange = function() {
+            if (xhrProgress.readyState === XMLHttpRequest.DONE) {
+                if (xhrProgress.status === 200) {
+                    // Parse the response and populate the form fields
+                    const lines = xhrProgress.responseText.split('\n');
+                    for (const line of lines) {
+                        const parts = line.split('-');
+                        if (parts.length === 2) {
+                            const usernameQuestionAnswer = parts[1].split(': ');
+                            const questionId = usernameQuestionAnswer[0];
+                            let answer = usernameQuestionAnswer[1];
+                            // Replace <br/> with newlines for textboxes
+                            answer = answer.replace(/<br\/>/g, '\n');
+
+                            const field = document.querySelector('[name="' + questionId + '"]');
+                            if (field) {
+                                if (field.tagName === 'INPUT' && field.type === 'radio') {
+                                    document.querySelector('[name="' + questionId + '"][value="' + answer + '"]').checked = true;
+                                } else {
+                                    field.value = answer;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    console.error(xhrProgress.statusText);
+                }
+            }
+        };
+        xhrProgress.send();
+
+        getMarks();
+    };
+</script>    
+<body>
+    <h1>Question Navigation</h1>
+    <form id="quizForm">
+        
+        
+        <!-- Add more question containers as needed -->
+    </form>
+        
+        <!-- HTML elements to display progress and marks -->
+        <br>
+        <p id="progress"></p>
+        <br>
+    <p id="marks"></p>
+    <br>
+    <p id="answer"></p>
+    <button onclick="submitForm(); getMarks();">Submit</button>
+
+    <script>
+        function submitForm() {
+            // Get all the answers from the form
+            const form = document.forms[0];
+            const answers = new FormData(form);
+
+            // Process each field in the form
+            for (let field of form) {
+                if (field.tagName === 'TEXTAREA') {
+                // Replace newline characters in the textarea value with <br/>
+                let value = field.value.replace(/\n/g, '<br/>');
+                answers.set(field.name, value);
+                }
+            }
+
+            // Format the data into a string
+            let dataStr = '';
+            for (let pair of answers.entries()) {
+                if (pair[1].trim() !== ''){
+                    dataStr += `${pair[0]}: ${pair[1]}\n`;
+                }
+            }
+
+            // Create a new XMLHttpRequest object
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/process-answers", true);
+
+            // Handle the response from the server
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        alert("Form submitted successfully!");
+                        console.log(xhr.responseText);
+                        const responseJson = JSON.parse(xhr.responseText);
+                        console.log(responseJson);
+                        const answerDiv = document.getElementById('answer');
+                        
+                        answerDiv.innerHTML = '';
+                        // Loop through the responseJson array and display each answer
+                        for (let answerObj of responseJson) {
+                            const answerText = document.createElement('p');
+                            answerText.textContent = `Question ID ${answerObj.questionID}: ${answerObj.answer}`;
+                            answerDiv.appendChild(answerText);
+                        }
+                    } else {
+                        alert("Form submission failed.");
+                    }
+                }
+            };
+
+            // Send the request
+            xhr.send(dataStr);
+        }
+
+        function getMarks(){
+        // Make a request to the get-marks endpoint
+        const xhrMarks = new XMLHttpRequest();
+        xhrMarks.open("GET", "/get-marks", true);
+        xhrMarks.onreadystatechange = function() {
+            if (xhrMarks.readyState === XMLHttpRequest.DONE) {
+                if (xhrMarks.status === 200) {
+                    // Parse the response
+                    const marksData = JSON.parse(xhrMarks.responseText);
+                    console.log(marksData); // for debugging
+                        
+                    let totalMarks = 0;
+                        
+                    for (let questionId in marksData) {
+                        const data = marksData[questionId];
+                        if (data.mark !== -1){
+                            totalMarks += data.mark;
+                        }
+                        const questionDiv = document.getElementById('question-' + data.qid);
+                        
+                        if (questionDiv) {
+                            if (data.mark !== 0 && data.mark !== -1) {
+                                questionDiv.style.backgroundColor = '#c8e6c9'; // light green color
+                            } else {
+                                questionDiv.style.backgroundColor = '#ffcdd2'; // light red color
+                            }
+                        }
+        
+                    }
+                        
+                    // Display total marks
+                    const marksParagraph = document.getElementById('marks');
+                    marksParagraph.textContent = 'Total marks: ' + totalMarks;
+                } else {
+                    console.error(xhrMarks.statusText);
+                }
+            }
+        }
+        xhrMarks.send();
+        }
+
+
+    </script>
+    
+    <!-- HTML elements to display logout button and page -->
+        <button onclick="logout();">Logout</button>
+    
+</body>
+</html>
+
