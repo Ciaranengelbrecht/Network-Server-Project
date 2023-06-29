@@ -1,0 +1,100 @@
+{
+    "language": "Java",
+    "questions": [
+        {
+            "id": "11",
+            "type": "mcq",
+            "question": "What is the correct way to define a main method in Java?",
+            "options": [
+                "public static void main(String[] args)",
+                "public main void(String[] args)",
+                "static main(String[] args)"
+            ],
+            "answer": "public static void main(String[] args)"
+        },
+        {
+            "id": "12",
+            "type": "mcq",
+            "question": "What is the default value of a boolean variable in Java?",
+            "options": [
+                "true",
+                "false",
+                "null"
+            ],
+            "answer": "false"
+        },
+        {
+            "id": "13",
+            "type": "mcq",
+            "question": "Which of the following is the correct extension of Java code files?",
+            "options": [
+                ".js",
+                ".java",
+                ".class"
+            ],
+            "answer": ".java"
+        },
+        {
+            "id": "14",
+            "type": "mcq",
+            "question": "Which keyword is used for the block to be examined for exceptions?",
+            "options": [
+                "try",
+                "catch",
+                "check"
+            ],
+            "answer": "try"
+        },
+        {
+            "id": "15",
+            "type": "mcq",
+            "question": "Which of the following is the numerical range of a char data type in Java?",
+            "options": [
+                "0 to 256",
+                "0 to 65535",
+                "-127 to 127"
+            ],
+            "answer": "0 to 65535"
+        },
+        {
+            "id": "16",
+            "type": "prog_java",
+            "question": "Write a Java program that prints Hello World. If you use double quotes in your answer, be sure to use a backslash before them.",
+            "input": null,
+            "output": "Hello World",
+            "solution": "public class HelloWorld { public static void main(String[] args) { System.out.println(\"Hello World\"); } }"
+        },
+        {
+            "id": "17",
+            "type": "prog_java",
+            "question": "Write a Java program that prints the result of integer division of 100 by 3, ignoring the remainder. A single integer should be printed.",
+            "input": null,
+            "output": "33",
+            "solution": "public class Main { public static void main(String[] args) { int a = 100; int b = 3; System.out.println(a/b); } }"
+        },
+        {
+            "id": "18",
+            "type": "prog_java",
+            "question": "Write a Java program that prints the Fibonacci series up to the 10th term. The printed output should be formatted as \"0 1 2 \" and so on.",
+            "input": null,
+            "output": "0 1 1 2 3 5 8 13 21 34 ",
+            "solution": "public class Main { public static void main(String[] args) { int n = 10, t1 = 0, t2 = 1; for (int i = 1; i <= n; ++i) { System.out.print(t1 + \" \"); int sum = t1 + t2; t1 = t2; t2 = sum; } } }"
+        },
+        {
+            "id": "19",
+            "type": "prog_java",
+            "question": "Write a Java program that prints the first 10 perfect squares. The printed output should be formatted as \"0 1 2 \" and so on.",
+            "input": null,
+            "output": "1 4 9 16 25 36 49 64 81 100 ",
+            "solution": "public class Main { public static void main(String[] args) { for (int i = 1; i <= 10; ++i) { System.out.print(i*i + \" \"); } } }"
+        },
+        {
+            "id": "20",
+            "type": "prog_java",
+            "question": "Write a Java program that calculates and prints the sum of numbers from 1 to 100. A single integer should be printed.",
+            "input": null,
+            "output": "5050",
+            "solution": "public class Main { public static void main(String[] args) { int sum = 0; for(int i = 1; i <= 100; i++) { sum += i; } System.out.println(sum); } }"
+        }
+    ]
+}

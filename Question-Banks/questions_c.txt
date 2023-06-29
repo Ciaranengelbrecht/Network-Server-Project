@@ -1,0 +1,100 @@
+{
+    "language": "C",
+    "questions": [
+        {
+            "id": "21",
+            "type": "mcq",
+            "question": "Which keyword is used to allocate memory dynamically in C?",
+            "options": [
+                "alloc",
+                "malloc",
+                "calloc"
+            ],
+            "answer": "malloc"
+        },
+        {
+            "id": "22",
+            "type": "mcq",
+            "question": "What is the correct way to define a pointer variable in C?",
+            "options": [
+                "int *p;",
+                "int &p;",
+                "int p(pointer);"
+            ],
+            "answer": "int *p;"
+        },
+        {
+            "id": "23",
+            "type": "mcq",
+            "question": "What of the following is the sizeof(char) in a 32-bit C compiler?",
+            "options": [
+                "2 Bits",
+                "1 Byte",
+                "8 Bytes"
+            ],
+            "answer": "1 Byte"
+        },
+        {
+            "id": "24",
+            "type": "mcq",
+            "question": "'scanf()'' is a predefined function in which C header file?",
+            "options": [
+                "stdarg.h",
+                "ctype.h",
+                "stdio.h"
+            ],
+            "answer": "stdio.h"
+        },
+        {
+            "id": "25",
+            "type": "mcq",
+            "question": "What are the elements present in the C array after the following declaration?: int array[5] = {5}; ",
+            "options": [
+                "5, NULL, NULL, NULL, NULL",
+                "5,0,0,0,0",
+                "5,5,5,5,5"
+            ],
+            "answer": "5,0,0,0,0"
+        },
+        {
+            "id": "26",
+            "type": "prog_py",
+            "question": "Write a C program that prints Hello World. If you use double quotes in your answer, be sure to use a backslash before them.",
+            "input": null,
+            "output": "Hello World",
+            "solution": "#include <stdio.h>\nint main() {   printf(\"Hello World\");\n   return 0;\n}"
+        },
+        {
+            "id": "27",
+            "type": "prog_py",
+            "question": "Write a C program that prints the result of integer division of 100 by 3, ignoring the remainder. A single integer should be printed. If you use double quotes in your answer, be sure to use a backslash before them.",
+            "input": null,
+            "output": "33",
+            "solution": "#include <stdio.h>\nint main() {\n   int a = 100;\n   int b = 3;\n   printf(\"%d\", a/b);\n   return 0;\n}"
+        },
+        {
+            "id": "28",
+            "type": "prog_py",
+            "question": "Write a C program that prints the Fibonacci series up to the 10th term. The printed output should be formatted as \"0 1 2 \" and so on. If you use double quotes in your answer, be sure to use a backslash before them.",
+            "input": null,
+            "output": "0 1 1 2 3 5 8 13 21 34 ",
+            "solution": "#include <stdio.h>\nint main() {\n   int n = 10, t1 = 0, t2 = 1;\n   for (int i = 1; i <= n; ++i) {\n       printf(\"%d \", t1);\n       int sum = t1 + t2;\n       t1 = t2;\n       t2 = sum;\n   }\n   return 0;\n}"
+        },
+        {
+            "id": "29",
+            "type": "prog_py",
+            "question": "Write a C program that prints the first 10 perfect squares. The printed output should be formatted as \"1 4 9 \" and so on. If you use double quotes in your answer, be sure to use a backslash before them.",
+            "input": null,
+            "output": "1 4 9 16 25 36 49 64 81 100 ",
+            "solution": "#include <stdio.h>\nint main() {\n   for (int i = 1; i <= 10; ++i) {\n       printf(\"%d \", i*i);\n   }\n   return 0;\n}"
+        },
+        {
+            "id": "30",
+            "type": "prog_py",
+            "question": "Write a C program that calculates and prints the sum of numbers from 1 to 100. A single integer should be printed. If you use double quotes in your answer, be sure to use a backslash before them.",
+            "input": null,
+            "output": "5050",
+            "solution": "#include <stdio.h>\nint main() {\n   int sum = 0;\n   for(int i = 1; i <= 100; i++) {\n       sum += i;\n   }\n   printf(\"%d\", sum);\n   return 0;\n}"
+        }
+    ]
+}

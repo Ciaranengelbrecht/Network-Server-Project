@@ -1,0 +1,103 @@
+{
+    "language": "Python",
+    "questions": [
+    {
+        "id": "0",
+        "type": "mcq",
+        "question": "Which of the following file extensions are used for Python?",
+        "options": [
+            ".snake",
+            ".p",
+            ".py"
+        ],
+        "answer": 2
+    },
+    {
+        "id": "1",
+        "type": "mcq",
+        "question": "What keyword is used for a function in Python?",
+        "options": [
+            "Func",
+            "def",
+            "Define"
+        ],
+        "answer": 1
+    },
+    {
+        "id": "2",
+        "type": "mcq",
+        "question": "Who of the following developed Python Programming Language?",
+        "options": [
+            "Steve Jobs",
+            "Guido van Rossum",
+            "Gabe Newell"
+        ],
+        "answer": 1
+    },
+    {
+        "id": "3",
+        "type": "mcq",
+        "question": "Which character is used to give a single-line comment in Python?",
+        "options": [
+            "//",
+            "!",
+            "#"
+        ],
+        "answer": 2
+    },
+    {
+        "id": "4",
+        "type": "mcq",
+        "question": "What will be the output of the following python function?:  min(max(False,-3,-4), 2,7) ",
+        "options": [
+            "1",
+            "2",
+            "False"
+        ],
+        "answer": 2
+    },
+    {
+        "id": "5",
+        "type": "prog_py",
+        "question": "Write a Python Function that prints 'Hello' to Stdout ",
+        "input": null,
+        "output": "Hello",
+        "solution": "print('Hello')"
+    },
+    {
+        "id": "6",
+        "type": "prog_py",
+        "question": "Write a Python program to print to Stdout the first 5 Fibonacci numbers in the format 'x, x, x, x, x' ",
+        "input": null,
+        "output": "0, 1, 1, 2, 3",
+        "solution": "print('0, 1, 1, 2, 3')"
+    },
+    {
+        "id": "7",
+        "type": "prog_py",
+        "question": "Write a Python Function that prints 'Hello' to Stdout?",
+        "input": null,
+        "output": "Hello",
+        "solution": "print('Hello')"
+    },
+    {
+        "id": "8",
+        "type": "prog_py",
+        "question": "Write a Python Function that prints 'Hello' to Stdout?",
+        "input": null,
+        "output": "Hello",
+        "solution": "print('Hello')"
+    },
+    {
+        "id": "9",
+        "type": "prog_py",
+        "question": "Write a Python Function that prints 'Hello' to Stdout?",
+        "input": null,
+        "output": "Hello",
+        "solution": "print('Hello')"
+    }
+
+
+
+    ]
+}
